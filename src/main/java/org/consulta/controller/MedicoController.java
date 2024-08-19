@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,9 +56,14 @@ public class MedicoController {
     }
 
     @PostMapping("/criarMedicos")
-    public String criarMedicos(Medico medico, RedirectAttributes redirectAttributes) {
+    public String criarMedicos(@ModelAttribute("medico") Medico medico, RedirectAttributes redirectAttributes) {
         if (medicoService.buscarPorCrm(medico.getCrm()) != null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Um médico com esse CRM já existe");
+            return "redirect:/medicos/criarMedicos";
+        }
+        if(medico.getCrm().length() > 60 || medico.getEmail().length() > 60 || medico.getEspecialidade().length() > 60 ||
+        medico.getName().length() > 60 || medico.getPassword().length() > 60 || medico.getUsername().length() > 60) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Você está com uma entrada longa demais");
             return "redirect:/medicos/criarMedicos";
         }
         Usuario usuario = new Usuario();

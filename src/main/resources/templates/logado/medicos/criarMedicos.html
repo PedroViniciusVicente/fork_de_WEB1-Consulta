@@ -86,6 +86,9 @@
 </head>
 <body>
     <h2 th:text="#{addDoctor}"></h2>
+    <div th:if="${not #lists.isEmpty(errorMessage)}">
+        <p style="color: red;" th:text="${errorMessage}"></p>
+    </div>
     <form th:action="@{/medicos/criarMedicos}" method="post">
         <label for="email" th:text="#{email}"></label>
         <input type="text" name="email" id="email" required>
