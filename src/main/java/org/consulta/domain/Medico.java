@@ -22,7 +22,7 @@ public class Medico extends AbstractEntity<Long> {
     private String email;
 
     @NotBlank
-    @Column(nullable = false, length = 20, unique = true)
+    @Column(nullable = false, length = 60, unique = true)
     private String username;
 
     @NotBlank(message = "{NotBlank.medico.Password}")
