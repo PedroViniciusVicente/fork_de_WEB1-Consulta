@@ -41,6 +41,33 @@
             color: #fff;
         }
 
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .actions a {
+            color: white;
+            text-decoration: none;
+            background: #9b59b6;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .actions a.delete {
+            background: #e74c3c;
+        }
+
+        .actions a:hover {
+            background: #8e44ad;
+        }
+
+        .actions a.delete:hover {
+            background: #c0392b;
+        }
+
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
@@ -67,7 +94,7 @@
 </head>
 <body>
     <div class="table-container">
-        <h1><th th:text="#{doctorsList}"> </th></h1>
+        <h1 th:text="#{doctorsList}">Listagem de Médicos</h1>
         <table>
             <thead>
                 <tr>
@@ -75,6 +102,7 @@
                     <th th:text="#{lname}"> </th>
                     <th th:text="#{lexpertise}"> </th>
                     <th th:text="#{lcrm}"> </th>
+                    <th th:if="${usuario.role == 'ROLE_MEDICO' || usuario.role == 'ROLE_ADMIN'}" th:text="#{ListPatientPageActions}">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,15 +115,17 @@
                         <a th:href="@{/medicos/editarMedicos/{id}(id = ${medico.id})}" class="edit" th:text="#{edit}">Edit</a>
                         <a th:href="@{/medicos/deletarMedicos/{id}(id = ${medico.id})}"
                            class="delete"
-                           onclick="return confirm('[[${confirmAction}]]')"
+                           th:onclick="'return confirm(\'' + #{confirmAction} + '\')'"
                            th:text="#{delete}">Delete</a>
                     </td>
                 </tr>
             </tbody>
+            
 
         </table>
 
         <div class="nav-links">
+            <a th:href="@{/medicos/criarMedicos}" th:text="#{addDoctor}">Adicionar Novo Medico</a>
             <a th:href="@{/index}" th:text="#{home}"></a>
         </div>
     </div>

@@ -8,6 +8,8 @@ import org.consulta.service.spec.IMedicoService;
 // import org.consulta.util.Erro;
 import org.consulta.service.spec.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,6 +40,13 @@ public class MedicoController {
     public String listagemMedicos(Model model) {
         List<Medico> listaMedicos = medicoService.buscarTodos();
         model.addAttribute("listaMedicos", listaMedicos);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Usuario usuario = null;
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails) principal).getUsername();
+            usuario = usuarioService.buscarPorLogin(username);
+        }
+        model.addAttribute("usuario", usuario);
         return "nlogado/medicos/listagemMedicos";
     }
 
@@ -49,7 +59,6 @@ public class MedicoController {
 
     @GetMapping("/criarMedicos")
     public String criarMedicosForm(Model model) {
-        // Assuming there's a MedicoForm or similar class for binding form data
         model.addAttribute("medico", new Medico());
         return "logado/medicos/criarMedicos";
     }
@@ -75,7 +84,7 @@ public class MedicoController {
     }
 
     @GetMapping("/editarMedicos/{id}")
-    public String editarMedicosForm(@PathVariable Long id, Model model) {
+    public String editarMedicosForm(@PathVariable("id") Long id, Model model) {
         Medico medico = medicoService.buscarPorId(id);
         if (medico == null) {
             return "redirect:/medicos/listagemMedicos";
@@ -85,19 +94,23 @@ public class MedicoController {
     }
 
     @PostMapping("/editarMedicos")
-    public String editarMedicos(Medico medico, RedirectAttributes redirectAttributes) {
+    public String editarMedicos(@ModelAttribute("medico") Medico medico, RedirectAttributes redirectAttributes) {
         medicoService.atualizar(medico);
         Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
-        usuario.setUsername(medico.getEmail());
-        usuario.setPassword(medico.getPassword());
-        usuario.setName(medico.getName());
-        usuarioService.atualizar(usuario);
+        if (usuario != null) {
+            usuario.setUsername(medico.getUsername());
+            usuario.setEmail(medico.getEmail());
+            usuario.setName(medico.getName());
+            usuario.setPassword(medico.getPassword());
+            usuarioService.atualizar(usuario);
+        }
         return "redirect:/medicos/listagemMedicos";
     }
 
     @GetMapping("/deletarMedicos/{id}")
-    public String deletarMedicos(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    public String deletarMedicos(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Medico medico = medicoService.buscarPorId(id);
+        System.out.println("asdasd");
         if (medico != null) {
             Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
             if (usuario != null) {
