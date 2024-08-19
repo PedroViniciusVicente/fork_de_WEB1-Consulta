@@ -146,15 +146,15 @@
 <div th:if="${not #lists.isEmpty(errorMessage)}">
     <p style="color: red;" th:text="${errorMessage}"></p>
 </div>
-<form th:action="@{/pacientes/criarConsulta}" method="post">
+<form th:action="@{/consultas/criarConsulta}" method="post">
     <label for="cpf" th:text="#{cpfPatient}">CPF do Paciente</label>
-    <input type="text" name="cpf" id="cpf" th:value="${usuarioLogado.documento}" readonly>
+    <input type="text" name="cpf" id="cpf" th:value="${usuarioLogado.cpf}" readonly>
 
     <label for="crm" th:text="#{crmDoctor}">CRM do Médico</label>
     <input type="text" name="crm" id="crm" required>
 
-    <label for="data_hora" th:text="#{createAppointmentDateAndTime}">Data e Hora</label>
-    <input type="datetime-local" name="data_hora" id="data_hora" required step="1800">
+    <label for="dataHora" th:text="#{createAppointmentDateAndTime}">Data e Hora</label>
+    <input type="datetime-local" name="dataHora" id="dataHora" required step="1800">
 
     <input type="submit" th:value="#{addAppointment}">
 </form>
@@ -174,12 +174,8 @@
         <td th:text="${medico.id}"></td>
         <td th:text="${medico.email}"></td>
         <td th:text="${medico.crm}"></td>
-        <td th:text="${medico.nome}"></td>
+        <td th:text="${medico.name}"></td>
         <td th:text="${medico.especialidade}"></td>
-       <td th:if="${usuarioLogado.cargo == 'medico' || usuarioLogado.cargo == 'admin'}">
-           <a th:href="@{/medicos/editarMedicos(id=${medico.id})}" th:text="#{cedit}">Editar</a>
-           <a th:href="@{/medicos/deletarMedicos(id=${medico.id})}" th:onclick="'return confirm(\'' + #{cconfirm} + '\')'" th:text="#{cdelete}">Excluir</a>
-       </td>
     </tr>
     </tbody>
 </table>

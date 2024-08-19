@@ -35,16 +35,16 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/index", "/error", "/login/**", "/js/**", "/medicos/listagemMedicos", "medicos/especialidade", "medicos/listagemEspecialidades").permitAll()
+                        .requestMatchers("/error", "/login/**", "/js/**", "/medicos/listagemMedicos", "medicos/especialidade", "medicos/listagemEspecialidades").permitAll()
+                        .requestMatchers("/index").authenticated()
                         .requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
-                        .requestMatchers("/consultasPaciente/**").hasRole("PACIENTE")
-                        .requestMatchers("/consultasMedico/**").hasRole("MEDICO")
-                        .requestMatchers("/medicos/**", "/pacientes/**", "/usuarios/**", "/consultas/**").hasRole("ADMIN")
+                        .requestMatchers("/consultas/consultasPorCpf/**", "/consultas/criarConsulta/**").hasRole("PACIENTE")
+                        .requestMatchers("/consultas/consultasPorCrm/**").hasRole("MEDICO")
+                        .requestMatchers("/medicos/**", "/pacientes/**", "/usuarios/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin((form) -> form
                         .loginPage("/login")
@@ -55,9 +55,12 @@ public class WebSecurityConfig {
                         })
                         .permitAll())
                 .logout((logout) -> logout
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                         .permitAll())
-                ;
+        ;
 
         return http.build();
     }

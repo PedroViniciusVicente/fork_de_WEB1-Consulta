@@ -9,10 +9,6 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Medico")
 public class Medico extends AbstractEntity<Long> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @NotBlank(message = "{NotBlank.medico.email}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)

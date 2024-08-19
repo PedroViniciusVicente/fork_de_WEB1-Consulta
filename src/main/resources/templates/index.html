@@ -86,7 +86,9 @@
 
 
         <div th:if="${usuarioLogado != null}">
-            <a th:href="@{/logout}" th:text="#{logout}">Logout</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" th:text="#{logout}">Logout</button>
+            </form>
         </div> 
 
         <a th:href="@{/medicos/listagemMedicos}" th:text="#{viewDoctors}">View Doctors</a>
@@ -103,10 +105,10 @@
             <a th:href="@{/consultas/consultasPorCpf(cpf=${usuarioLogado.getCpf()})}" th:text="#{viewConsultas}">View Consultations</a>
         </div>
         <div th:if="${usuarioLogado.role == 'ROLE_PACIENTE'}">
-            <a th:href="@{/consultas/criarConsulta(cpf=${usuarioLogado.getCpf()})}" th:text="#{addConsultas}">Add Consultation</a>
+            <a th:href="@{/consultas/criarConsulta/{cpf}(cpf = ${usuarioLogado.cpf})}" th:text="#{addConsultas}">Add Consultation</a>
         </div>
         <div th:if="${usuarioLogado.role == 'ROLE_MEDICO'}">
-            <a th:href="@{/consultas/consultasPorCrm(crm=${usuarioLogado.getCpf()})}" th:text="#{viewConsultas}">View Consultations</a>
+            <a th:href="@{/consultas/consultasPorCrm/{crm}(crm = ${usuarioLogado.cpf})}" th:text="#{viewConsultas}">View Consultations</a>
         </div> 
     </div>  
 </body>

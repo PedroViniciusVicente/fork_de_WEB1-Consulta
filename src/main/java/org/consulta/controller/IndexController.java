@@ -43,8 +43,4 @@ public class IndexController {
         return "index"; 
     }
 
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/login?logout"; // Redirect to login page after logout
-    }
 }

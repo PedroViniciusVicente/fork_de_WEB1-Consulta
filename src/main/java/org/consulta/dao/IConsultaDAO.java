@@ -35,7 +35,7 @@ public interface IConsultaDAO extends CrudRepository<Consulta, Long>{
     void deleteById(Long id);
 
     //checkValidity
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Consulta c WHERE (c.crm = :crm AND c.dataHora = :dataHora) OR (c.dataHora = :dataHora AND c.cpf = :cpf)")
+    @Query("SELECT COUNT(c) > 0 FROM Consulta c WHERE (c.crm = :crm AND c.dataHora = :dataHora) OR (c.dataHora = :dataHora AND c.cpf = :cpf)")
     boolean checkValidity(@Param("crm") String crm, @Param("cpf") String cpf, @Param("dataHora") String dataHora);
 
 }

@@ -100,14 +100,13 @@
     <tbody>
     <tr th:each="consulta : ${listaConsultas}">
         <td th:text="${consulta.id}"></td>
-        <td th:text="${consulta.cpfPaciente}"></td>
-        <td th:text="${consulta.crmMedico}"></td>
+        <td th:text="${consulta.cpf}"></td>
+        <td th:text="${consulta.crm}"></td>
         <td th:text="${consulta.dataHora}"></td>
     </tr>
     </tbody>
 </table>
 <div class="link-container">
-    <a th:href="@{/pacientes/criarConsulta}" th:text="#{addNewAppointment}">Adicionar Nova Consulta</a>
     <a th:href="@{/index}" th:text="#{home}">Início</a>
 </div>
 </body>

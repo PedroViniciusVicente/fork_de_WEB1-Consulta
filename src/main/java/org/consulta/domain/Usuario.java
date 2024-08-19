@@ -8,11 +8,6 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "Usuario")
 public class Usuario extends AbstractEntity<Long> {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @NotBlank
     @Column(nullable = false, length = 20, unique = true)
     private String username;
@@ -43,10 +38,6 @@ public class Usuario extends AbstractEntity<Long> {
 
     public String getUsername() {
         return username;
-    }
-
-    public Long getId(){
-        return id;
     }
 
     public void setEmail(String email) {

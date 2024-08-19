@@ -6,10 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "Paciente")
 public class Paciente extends AbstractEntity<Long>{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @NotBlank
     @Column(nullable = false, length = 64)
     private String email;
@@ -35,43 +31,8 @@ public class Paciente extends AbstractEntity<Long>{
     @Column(nullable = false, length = 64, unique = true)
     private String username;
 
-
-    public Paciente(Long id) {this.id = id;}
-    public Paciente(String email, String senha, String cpf, String nome, String telefone, String sexo, String dataNascimento, String username) {
-        super();
-        this.email = email;
-        this.senha = senha;
-        this.cpf = cpf;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.sexo = sexo;
-        this.dataNascimento = dataNascimento;
-        this.username = username;
-    }
-
-    public Paciente(Long id, String email, String senha, String cpf, String nome, String telefone, String sexo, String dataNascimento, String username) {
-        super();
-        this.id = id;
-        this.email = email;
-        this.senha = senha;
-        this.cpf = cpf;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.sexo = sexo;
-        this.dataNascimento = dataNascimento;
-        this.username = username;
-    }
-
     public Paciente() {
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {

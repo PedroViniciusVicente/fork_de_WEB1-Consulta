@@ -96,14 +96,21 @@ public class MedicoController {
     }
 
     @GetMapping("/deletarMedicos/{id}")
-    public String deletarMedicos(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String deletarMedicos(@PathVariable long id, RedirectAttributes redirectAttributes) {
         Medico medico = medicoService.buscarPorId(id);
         if (medico != null) {
-            usuarioService.buscarPorDocumento(medico.getCrm());
-            medicoService.excluir(id);
+            Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
+            if (usuario != null) {
+                usuarioService.excluir(usuario.getId());
+            }
+            medicoService.excluir(medico.getId());
+            redirectAttributes.addFlashAttribute("successMessage", "Médico deletado com sucesso.");
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Médico não encontrado.");
         }
         return "redirect:/medicos/listagemMedicos";
     }
+
 
     @GetMapping("/especialidade")
     public String listarMedicosPorEspecialidade(@RequestParam("nome") String especialidade, Model model) {

@@ -7,9 +7,6 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "Consulta")
 public class Consulta extends AbstractEntity<Long> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @NotBlank
     @Column(nullable = false, length = 64)
     private String cpf;
@@ -19,37 +16,6 @@ public class Consulta extends AbstractEntity<Long> {
     @NotBlank
     @Column(nullable = false, length = 64)
     private String dataHora;
-
-    public Consulta(Long id) {
-        this.id = id;
-    }
-
-    public Consulta(String cpf, String crm, String dataHora) {
-        super();
-        this.cpf = cpf;
-        this.crm = crm;
-        this.dataHora = dataHora;
-    }
-
-    public Consulta(Long id, String cpf, String crm, String dataHora) {
-        super();
-        this.id = id;
-        this.cpf = cpf;
-        this.crm = crm;
-        this.dataHora = dataHora;
-    }
-
-    public Consulta() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCpf() {
         return cpf;
