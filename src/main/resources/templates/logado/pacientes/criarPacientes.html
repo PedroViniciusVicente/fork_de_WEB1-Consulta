@@ -83,6 +83,26 @@
             background: #8e44ad;
         }
     </style>
+
+    <script>
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        window.onload = function() {
+            let lang = getCookie("lang");
+            let urlParams = new URLSearchParams(window.location.search);
+
+            // Prevent redirect if there's an error parameter
+            if (!urlParams.has("error") && lang && !window.location.search.includes("lang=" + lang)) {
+                let newUrl = window.location.pathname + "?lang=" + lang;
+                window.location.href = newUrl;
+            }
+        }
+    </script>
 </head>
 <body>
     <h2 th:text="#{addNewPatient}">Adicionar Novo Paciente</h2>

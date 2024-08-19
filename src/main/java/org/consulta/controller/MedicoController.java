@@ -60,18 +60,24 @@ public class MedicoController {
             redirectAttributes.addFlashAttribute("errorMessage", "Um médico com esse CRM já existe");
             return "redirect:/medicos/criarMedicos";
         }
-        Usuario usuario = new Usuario();
-        usuario.setUsername(medico.getEmail());
-        usuario.setEmail(medico.getEmail());
-        usuario.setPassword(medico.getPassword());
-        usuario.setCpf(medico.getCrm());
-        usuario.setName(medico.getName());
-        usuario.setRole("ROLE_MEDICO");
-        usuario.setEnabled(true);
-        usuarioService.salvar(usuario);
+        try {
+            Usuario usuario = new Usuario();
+            usuario.setUsername(medico.getEmail());
+            usuario.setEmail(medico.getEmail());
+            usuario.setPassword(medico.getPassword());
+            usuario.setCpf(medico.getCrm());
+            usuario.setName(medico.getName());
+            usuario.setRole("ROLE_MEDICO");
+            usuario.setEnabled(true);
+            usuarioService.salvar(usuario);
 
-        medicoService.salvar(medico);
-        return "redirect:/medicos/listagemMedicos";
+            medicoService.salvar(medico);
+            return "redirect:/medicos/listagemMedicos";
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Informações inválidas");
+            return "redirect:/medicos/criarMedicos";
+        }
+
     }
 
     @GetMapping("/editarMedicos/{id}")
