@@ -1,9 +1,12 @@
 package org.consulta.controller;
 
+import org.consulta.domain.Consulta;
 import org.consulta.domain.Medico;
+import org.consulta.domain.Usuario;
+import org.consulta.service.spec.IConsultaService;
 import org.consulta.service.spec.IMedicoService;
 // import org.consulta.util.Erro;
-
+import org.consulta.service.spec.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,13 @@ public class MedicoController {
 
     @Autowired
     private IMedicoService medicoService;
+
+    @Autowired
+    private IUsuarioService usuarioService;
+
+    @Autowired
+    private IConsultaService consultaService;
+
 
     @GetMapping("/listagemMedicos")
     public String listagemMedicos(Model model) {
@@ -50,6 +60,15 @@ public class MedicoController {
             redirectAttributes.addFlashAttribute("errorMessage", "Um médico com esse CRM já existe");
             return "redirect:/medicos/criarMedicos";
         }
+        Usuario usuario = new Usuario();
+        usuario.setUsername(medico.getEmail());
+        usuario.setPassword(medico.getSenha());
+        usuario.setCpf(medico.getCrm());
+        usuario.setName(medico.getNome());
+        usuario.setRole("ROLE_MEDICO");
+        usuario.setEnabled(true);
+        usuarioService.salvar(usuario);
+
         medicoService.salvar(medico);
         return "redirect:/medicos/listagemMedicos";
     }
@@ -67,12 +86,21 @@ public class MedicoController {
     @PostMapping("/editarMedicos")
     public String editarMedicos(Medico medico, RedirectAttributes redirectAttributes) {
         medicoService.atualizar(medico);
+        Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
+        usuario.setUsername(medico.getEmail());
+        usuario.setPassword(medico.getSenha());
+        usuario.setName(medico.getNome());
+        usuarioService.atualizar(usuario);
         return "redirect:/medicos/listagemMedicos";
     }
 
     @GetMapping("/deletarMedicos/{id}")
     public String deletarMedicos(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        medicoService.excluir(id);
+        Medico medico = medicoService.buscarPorId(id);
+        if (medico != null) {
+            usuarioService.buscarPorDocumento(medico.getCrm());
+            medicoService.excluir(id);
+        }
         return "redirect:/medicos/listagemMedicos";
     }
 
@@ -82,5 +110,12 @@ public class MedicoController {
         model.addAttribute("listaMedicos", listaMedicos);
         model.addAttribute("especialidade", especialidade);
         return "nlogado/medicos/listagemMedicosPorEspecialidade";
+    }
+
+    @GetMapping("/listagemConsultas")
+    public String listagemConsultas(@RequestParam("crm") String crm, Model model) {
+        List<Consulta> listaConsultas = consultaService.buscarPorCrm(crm);
+        model.addAttribute("listaConsultas", listaConsultas);
+        return "logado/medicos/listagemConsultas";
     }
 }

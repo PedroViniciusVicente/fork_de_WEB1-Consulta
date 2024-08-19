@@ -48,15 +48,15 @@ public class ConsultaMvcApplication {
             m1.setName("Dr. João");
             m1.setEspecialidade("Cardiologia");
             medicoDAO.save(m1);
-            Usuario u1 = new Usuario();
-            u1.setUsername("medicojoao");
-            u1.setEmail("medicoJoao@email.com");
-            u1.setPassword(encoder.encode("senhadojoao"));
-            u1.setCpf("SP-36730");
-            u1.setName("Dr. João");
-            u1.setRole("ROLE_MEDICO");
-            u1.setEnabled(true);
-            usuarioDAO.save(u1);
+            Usuario mu1 = new Usuario();
+            mu1.setUsername("medicojoao");
+            mu1.setPassword(encoder.encode("senhadojoao"));
+            mu1.setCpf("SP-36730");
+            mu1.setName("Dr. João");
+            mu1.setRole("ROLE_MEDICO");
+            mu1.setEnabled(true);
+            usuarioDAO.save(mu1);
+
 
             Medico m2 = new Medico();
             m2.setUsername("medicoDaniel@email.com");
