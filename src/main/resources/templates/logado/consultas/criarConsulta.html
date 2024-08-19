@@ -138,6 +138,15 @@
             let minutes = ("0" + (Math.floor(today.getMinutes() / 30) * 30)).slice(-2);
             let minDateTime = year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
             document.getElementById("data_hora").min = minDateTime;
+
+            let lang = getCookie("lang");
+            let urlParams = new URLSearchParams(window.location.search);
+
+            // Prevent redirect if there's an error parameter
+            if (!urlParams.has("error") && lang && !window.location.search.includes("lang=" + lang)) {
+                let newUrl = window.location.pathname + "?lang=" + lang;
+                window.location.href = newUrl;
+            }
         }
     </script>
 </head>

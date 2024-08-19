@@ -24,6 +24,7 @@
         form {
             background: white;
             padding: 30px;
+
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 100%;
@@ -88,7 +89,7 @@
     <h2 th:text="#{editDoctor}"></h2>
     <form th:action="@{/medicos/editarMedicos}" method="post">
         <input type="hidden" name="id" th:value="${medico.id}">
-        <input type="hidden" name="ogcrm" th:value="${ogcrm}" />
+        <input type="hidden" name="crm"th:value="${medico.crm}">
 
         <label for="email" th:text="#{email}"></label>
         <input type="text" name="email" id="email" th:value="${medico.email}" required>
@@ -96,8 +97,8 @@
         <label for="password" th:text="#{password}"></label>
         <input type="password" name="password" id="password" th:value="${medico.password}" required>
 
-        <label for="crm" th:text="#{crm}"></label>
-        <input type="text" name="crm" id="crm" th:value="${medico.crm}" required>
+        <label for="username" th:text="#{username}"></label>
+        <input type="text" name="username" id="username" th:value="${medico.username}" required>
 
         <label for="name" th:text="#{name}"></label>
         <input type="text" name="name" id="name" th:value="${medico.name}" required>

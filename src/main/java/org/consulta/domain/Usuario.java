@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Usuario")
 public class Usuario extends AbstractEntity<Long> {
     @NotBlank
-    @Column(nullable = false, length = 60, unique = true)
+    @Column(nullable = false, length = 65, unique = true)
     private String username;
 
     @NotBlank

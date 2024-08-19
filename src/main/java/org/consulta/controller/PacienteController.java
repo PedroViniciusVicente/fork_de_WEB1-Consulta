@@ -37,25 +37,37 @@ public class PacienteController {
 
     @PostMapping("/criarPacientes")
     public String criarPacientes(@ModelAttribute("paciente") Paciente paciente, RedirectAttributes redirectAttributes) {
+
         Paciente jaExiste = pacienteService.buscarPorCpf(paciente.getCpf());
         if (jaExiste != null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Um paciente com esse CPF já existe");
             return "redirect:/pacientes/criarPacientes";
         }
+        if(paciente.getCpf().length() > 64 || paciente.getEmail().length() > 64 || 
+        paciente.getNome().length() > 64 || paciente.getSenha().length() > 64 || 
+        paciente.getSexo().length() > 64 || paciente.getTelefone().length() > 64 || paciente.getUsername().length() > 64) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Você está com uma entrada longa demais");
+            return "redirect:/pacientes/criarPacientes";
+        }
 
         // Create a new Usuario and Paciente
-        Usuario usuario = new Usuario();
-        usuario.setUsername(paciente.getUsername());
-        usuario.setEmail(paciente.getEmail());
-        usuario.setPassword(paciente.getSenha());
-        usuario.setCpf(paciente.getCpf());
-        usuario.setName(paciente.getNome());
-        usuario.setRole("ROLE_PACIENTE");
-        usuario.setEnabled(true);
-        pacienteService.salvar(paciente);
-        usuarioService.salvar(usuario);
-        System.out.println("chega aq");
-        return "redirect:/pacientes/listagemPacientes";
+        try {
+            Usuario usuario = new Usuario();
+            usuario.setUsername(paciente.getUsername());
+            usuario.setEmail(paciente.getEmail());
+            usuario.setPassword(paciente.getSenha());
+            usuario.setCpf(paciente.getCpf());
+            usuario.setName(paciente.getNome());
+            usuario.setRole("ROLE_PACIENTE");
+            usuario.setEnabled(true);
+            pacienteService.salvar(paciente);
+            usuarioService.salvar(usuario);
+            System.out.println("chega aq");
+            return "redirect:/pacientes/listagemPacientes";
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Informações inválidas");
+            return "redirect:/pacientes/criarPacientes";
+        }
     }
 
     @GetMapping("/editarPacientes/{id}")
