@@ -105,7 +105,7 @@
 <table>
     <thead>
     <tr>
-        <th th:text="#{ListPatientPageID}">ID</th>
+        <!-- <th th:text="#{ListPatientPageID}">ID</th> -->
         <th th:text="#{ListPatientPageEmail}">Email</th>
         <th th:text="#{ListPatientPageCPF}">CPF</th>
         <th th:text="#{ListPatientPageName}">Nome</th>
@@ -124,8 +124,8 @@
         <td th:text="${paciente.sexo}"></td>
         <td th:text="${paciente.dataNascimento}"></td>
         <td class="actions">
-            <a th:href="@{/pacientes/editarPacientes(id=${paciente.id}, ogcpf=${paciente.cpf})}" th:text="#{ListPatientPageEdit}">Editar</a>
-            <a th:href="@{/pacientes/deletarPacientes(id=${paciente.id})}" class="delete" th:onclick="'return confirm(\'' + #{confirmAction} + '\')'" th:text="#{ListPatientPageDelete}">Excluir</a>
+            <a th:href="@{/pacientes/editarPacientes/{id}(id=${paciente.id})}" th:text="#{ListPatientPageEdit}">Editar</a>
+            <a th:href="@{/pacientes/deletarPacientes/{id}(id=${paciente.id})}" class="delete" th:onclick="'return confirm(\'' + #{confirmAction} + '\')'" th:text="#{ListPatientPageDelete}">Excluir</a>
         </td>
     </tr>
     </tbody>

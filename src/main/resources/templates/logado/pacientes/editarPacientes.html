@@ -74,11 +74,11 @@
     <label for="email" th:text="#{email}">Email</label>
     <input type="text" name="email" id="email" th:value="${paciente.email}" required>
 
+    <label for="username" th:text="#{username}">Username</label>
+    <input type="text" name="username" id="username" th:value="${paciente.username}" required>
+
     <label for="senha" th:text="#{password}">Senha</label>
     <input type="password" name="senha" id="senha" th:value="${paciente.senha}" required>
-
-    <label for="cpf" th:text="#{cpf}">CPF</label>
-    <input type="text" name="cpf" id="cpf" th:value="${paciente.cpf}" required>
 
     <label for="nome" th:text="#{name}">Nome</label>
     <input type="text" name="nome" id="nome" th:value="${paciente.nome}" required>
@@ -93,6 +93,6 @@
     <input type="text" name="data_nascimento" id="data_nascimento" th:value="${paciente.dataNascimento}" required>
 
     <input type="submit" th:value="#{save}">
-</form>
+</form> 
 </body>
 </html>
