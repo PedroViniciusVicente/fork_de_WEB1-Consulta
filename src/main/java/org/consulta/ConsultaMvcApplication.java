@@ -77,8 +77,9 @@ public class ConsultaMvcApplication {
             u2.setEnabled(true);
             usuarioDAO.save(u2);
             
-/*
+        
             Medico m3 = new Medico();
+            m3.setUsername("mediacaMaria@email.com");
             m3.setEmail("medicaMaria@email.com");
             m3.setPassword("senhadamaria");
             m3.setCrm("AM-45082");
@@ -87,11 +88,11 @@ public class ConsultaMvcApplication {
             medicoDAO.save(m3);
             
             Usuario u3 = new Usuario();
-            u3.setUsername("fulano");
-            u3.setEmail("fulano@email.com");
-            u3.setPassword(encoder.encode("123"));
-            u3.setCpf("367.318.380-04");
-            u3.setName("Fulano Silva");
+            u3.setUsername("maria");
+            u3.setEmail("medicaMaria@email.com");
+            u3.setPassword(encoder.encode("senhadamaria"));
+            u3.setCpf("AM-45082");
+            u3.setName("Dra. Maria");
             u3.setRole("ROLE_MEDICO");
             u3.setEnabled(true);
             usuarioDAO.save(u3);
@@ -268,7 +269,6 @@ public class ConsultaMvcApplication {
             c4.setCrm("PR-54321");
             c4.setDataHora("2024-07-23T18:00");
             consultaDAO.save(c4);
- */
         };
     }
 }
