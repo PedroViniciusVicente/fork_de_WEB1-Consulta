@@ -97,6 +97,7 @@
             <a th:href="@{/pacientes/listagemPacientes}" th:text="#{viewPatients}">View Patients</a>
             <a th:href="@{/pacientes/criarPacientes}" th:text="#{addNewPatient}">View Patients</a>
             <a th:href="@{/medicos/criarMedicos}" th:text="#{addDoctor}">View Patients</a>
+            <a th:href="@{/consultas/listagemConsultas}" th:text="#{viewConsultas}">View Consultations</a>
 
         </div>
         <div th:if="${usuarioLogado.role == 'ROLE_PACIENTE'}">

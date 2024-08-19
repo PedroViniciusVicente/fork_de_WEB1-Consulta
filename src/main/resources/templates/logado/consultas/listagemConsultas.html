@@ -91,7 +91,6 @@
 <table>
     <thead>
     <tr>
-        <th th:text="#{listAppointmentID}">ID da Consulta</th>
         <th th:text="#{listAppointmentCPF}">CPF do Paciente</th>
         <th th:text="#{listAppointmentCRM}">CRM do Médico</th>
         <th th:text="#{listDateAndTime}">Data e Hora</th>
@@ -99,9 +98,8 @@
     </thead>
     <tbody>
     <tr th:each="consulta : ${listaConsultas}">
-        <td th:text="${consulta.id}"></td>
-        <td th:text="${consulta.cpfPaciente}"></td>
-        <td th:text="${consulta.crmMedico}"></td>
+        <td th:text="${consulta.cpf}"></td>
+        <td th:text="${consulta.crm}"></td>
         <td th:text="${consulta.dataHora}"></td>
     </tr>
     </tbody>

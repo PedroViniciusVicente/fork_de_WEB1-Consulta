@@ -23,8 +23,8 @@ public class ConsultaController {
 
     @GetMapping("/listagemConsultas")
     public String listagemConsultas(Model model) {
-        List<Consulta> listaConsultas = consultaService.buscarTodos();
-        model.addAttribute("listaConsultas", listaConsultas);
+        List<Consulta> consultas = consultaService.buscarTodos();
+        model.addAttribute("listaConsultas", consultas);
         return "logado/consultas/listagemConsultas";
     }
 
