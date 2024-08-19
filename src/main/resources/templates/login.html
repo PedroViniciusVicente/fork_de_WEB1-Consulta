@@ -96,6 +96,23 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .links a {
+            display: block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background: white;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .links a:hover {
+            background: #ddd;
+        }
     </style>
     <script>
         // Function to get the value of a cookie by name
@@ -123,18 +140,19 @@
     <h2>Login</h2>
     <form th:action="@{/login}" method="post">
         <div>
-            <label for="username">Username:</label>
+            <label th:text="#{user.login}" for="username"></label>
             <input type="text" id="username" name="username" />
         </div>
         <div>
-            <label for="password">Password:</label>
+            <label th:text="#{user.password}" for="password"></label>
             <input type="password" id="password" name="password" />
         </div>
         <div>
-            <input type="submit" value="Login" />
+            <input type="submit" th:value="#{user.loginButton}" />
         </div>
-        <div>
-            <a th:href="@{/medicos/criarMedicos}" th:text="#{addDoctor}"></a>
+        <div class="links">
+            <a th:href="@{/medicos/listagemMedicos}" th:text="#{viewDoctors}">View Doctors</a>
+            <a th:href="@{/medicos/listagemEspecialidades}" th:text="#{viewDoctorsBySpecialty}">View Doctors by Specialty</a>
         </div>
         <div th:if="${param.error}" id="erro">
             <p>Invalid username or password.</p>

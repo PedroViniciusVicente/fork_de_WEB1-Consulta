@@ -1,5 +1,7 @@
 package org.consulta;
 
+import org.consulta.domain.Paciente;
+import org.consulta.domain.Usuario;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.consulta.dao.IMedicoDAO;
 import org.consulta.domain.Medico;
 import org.consulta.dao.IUsuarioDAO;
-import org.consulta.domain.Usuario;
 
 @SpringBootApplication
 public class ConsultaMvcApplication {
@@ -26,6 +27,7 @@ public class ConsultaMvcApplication {
 
             Usuario u1 = new Usuario();
             u1.setUsername("admin");
+            u1.setEmail("admin@admin.com");
             u1.setPassword(encoder.encode("admin"));
             u1.setCpf("012.345.678-90");
             u1.setName("Administrador");
@@ -34,28 +36,31 @@ public class ConsultaMvcApplication {
             usuarioDAO.save(u1);
 
             Medico m1 = new Medico();
+            m1.setUsername("medicojoao");
             m1.setEmail("medicoJoao@email.com");
-            m1.setSenha("senhadojoao");
+            m1.setPassword("senhadojoao");
             m1.setCrm("SP-36730");
-            m1.setNome("Dr. João");
+            m1.setName("Dr. João");
             m1.setEspecialidade("Cardiologia");
             medicoDAO.save(m1);
 
             Usuario u2 = new Usuario();
             u2.setUsername("beltrano");
+            u2.setEmail("beltrano@email.com");
             u2.setPassword(encoder.encode("123"));
             u2.setCpf("985.849.614-10");
             u2.setName("Beltrano Andrade");
-            u2.setRole("ROLE_USER");
+            u2.setRole("ROLE_PACIENTE");
             u2.setEnabled(true);
             usuarioDAO.save(u2);
 
             Usuario u3 = new Usuario();
             u3.setUsername("fulano");
+            u3.setEmail("fulano@email.com");
             u3.setPassword(encoder.encode("123"));
             u3.setCpf("367.318.380-04");
             u3.setName("Fulano Silva");
-            u3.setRole("ROLE_USER");
+            u3.setRole("ROLE_MEDICO");
             u3.setEnabled(true);
             usuarioDAO.save(u3);
 

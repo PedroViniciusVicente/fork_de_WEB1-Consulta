@@ -10,6 +10,8 @@ public interface IUsuarioService {
 
     Usuario buscarPorLogin(String login);
 
+    Usuario buscarPorEmail(String email);
+
     Usuario buscarPorDocumento(String documento);
 
     List<Usuario> buscarTodos();

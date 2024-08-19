@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{editDoctor}"></title>
+    <title th:text="#{addNewPatient}">Adicionar Novo Paciente</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -85,29 +85,37 @@
     </style>
 </head>
 <body>
-    <h2 th:text="#{editDoctor}"></h2>
-    <form th:action="@{/medicos/editarMedicos}" method="post">
-        <input type="hidden" name="id" th:value="${medico.id}">
-        <input type="hidden" name="ogcrm" th:value="${ogcrm}" />
+    <h2 th:text="#{addNewPatient}">Adicionar Novo Paciente</h2>
+    <div th:if="${not #lists.isEmpty(errorMessage)}">
+        <p style="color: red;" th:text="${errorMessage}"></p>
+    </div>
+    <form th:action="@{/pacientes/criarPacientes}" method="post">
+        <label for="email" th:text="#{email}">Email</label>
+        <input type="text" name="email" id="email" required>
 
-        <label for="email" th:text="#{email}"></label>
-        <input type="text" name="email" id="email" th:value="${medico.email}" required>
+        <label for="username" th:text="#{user.login}">Username</label>
+        <input type="text" name="username" id="username" required>
 
-        <label for="senha" th:text="#{password}"></label>
-        <input type="password" name="senha" id="senha" th:value="${medico.senha}" required>
+        <label for="senha" th:text="#{password}">Senha</label>
+        <input type="password" name="senha" id="senha" required>
 
-        <label for="crm" th:text="#{crm}"></label>
-        <input type="text" name="crm" id="crm" th:value="${medico.crm}" required>
+        <label for="cpf" th:text="#{cpf}">CPF</label>
+        <input type="text" name="cpf" id="cpf" required>
 
-        <label for="nome" th:text="#{name}"></label>
-        <input type="text" name="nome" id="nome" th:value="${medico.nome}" required>
+        <label for="nome" th:text="#{name}">Nome</label>
+        <input type="text" name="nome" id="nome" required>
 
-        <label for="especialidade" th:text="#{expertise}"></label>
-        <input type="text" name="especialidade" id="especialidade" th:value="${medico.especialidade}" required>
+        <label for="telefone" th:text="#{phone}">Telefone</label>
+        <input type="text" name="telefone" id="telefone" required>
 
-        <input type="submit" th:value="#{save}">
+        <label for="sexo" th:text="#{gender}">Sexo</label>
+        <input type="text" name="sexo" id="sexo" required>
+
+        <label for="dataNascimento" th:text="#{birthday}">Data de Nascimento</label>
+        <input type="text" name="dataNascimento" id="dataNascimento" required>
+
+        <input type="submit" th:value="#{submitButton}">
     </form>
-
     <div class="nav-links">
         <a th:href="@{/index}" th:text="#{home}"></a>
     </div>

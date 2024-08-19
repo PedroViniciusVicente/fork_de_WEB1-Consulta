@@ -24,6 +24,9 @@ public class UsuarioService implements IUsuarioService {
     public Usuario buscarPorLogin(String login) { return dao.findByUsername(login); }
 
     @Transactional(readOnly = true)
+    public Usuario buscarPorEmail(String login) { return dao.findByUsername(login); }
+
+    @Transactional(readOnly = true)
     public Usuario buscarPorDocumento(String documento) {
         return dao.findByCpf(documento);
     }
