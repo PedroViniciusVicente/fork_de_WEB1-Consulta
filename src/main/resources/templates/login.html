@@ -87,7 +87,7 @@
         }
 
         a {
-            color: white;
+            color: black;
             text-decoration: none;
             margin-top: 20px;
             display: inline-block;
@@ -133,10 +133,12 @@
         <div>
             <input type="submit" value="Login" />
         </div>
+        <div>
+            <a th:href="@{/medicos/criarMedicos}" th:text="#{addDoctor}"></a>
+        </div>
         <div th:if="${param.error}" id="erro">
             <p>Invalid username or password.</p>
         </div>
-        
     </form>
 </body>
 </html>
