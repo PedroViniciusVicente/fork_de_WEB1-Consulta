@@ -2,6 +2,7 @@ package org.consulta.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity
@@ -21,6 +22,11 @@ public class Usuario extends AbstractEntity<Long> {
     private String password;
 
     @NotBlank
+    @Size(max = 60)
+    @Column(nullable = false, length = 60)
+    private String email;
+
+    @NotBlank
     @Column(nullable = false, length = 60)
     private String name;
 
@@ -37,6 +43,14 @@ public class Usuario extends AbstractEntity<Long> {
 
     public String getUsername() {
         return username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setUsername(String username) {
@@ -58,7 +72,6 @@ public class Usuario extends AbstractEntity<Long> {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getCpf() {
         return cpf;
@@ -84,84 +97,3 @@ public class Usuario extends AbstractEntity<Long> {
         this.enabled = enabled;
     }
 }
-
-/*package org.consulta.domain;
-
-public class Usuario {
-    private Long id;
-    private String login;
-    private String senha;
-    private String cargo;
-    private String nome_display;
-    private String documento;
-
-    public Usuario(Long id) {this.id = id;}
-
-    public Usuario(String login, String senha, String cargo, String nome_display, String documento) {
-        super();
-        this.login = login;
-        this.senha = senha;
-        this.cargo = cargo;
-        this.nome_display = nome_display;
-        this.documento = documento;
-    }
-
-    public Usuario(Long id, String login, String senha, String cargo, String nome_display, String documento) {
-        super();
-        this.id = id;
-        this.login = login;
-        this.senha = senha;
-        this.cargo = cargo;
-        this.nome_display = nome_display;
-        this.documento = documento;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getNome() {
-        return nome_display;
-    }
-
-    public void setNome(String nome_display) {
-        this.nome_display = nome_display;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-}
-*/

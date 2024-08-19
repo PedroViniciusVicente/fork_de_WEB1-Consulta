@@ -21,10 +21,14 @@ public class Medico extends AbstractEntity<Long> {
     @Column(nullable = false, length = 60)
     private String email;
 
-    @NotBlank(message = "{NotBlank.medico.senha}")
+    @NotBlank
+    @Column(nullable = false, length = 20, unique = true)
+    private String username;
+
+    @NotBlank(message = "{NotBlank.medico.Password}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
-    private String senha;
+    private String password;
 
     @NotBlank(message = "{NotBlank.medico.crm}")
     @Size(max = 60)
@@ -34,7 +38,7 @@ public class Medico extends AbstractEntity<Long> {
     @NotBlank(message = "{NotBlank.medico.nome}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
-    private String nome;
+    private String name;
 
     @NotBlank(message = "{NotBlank.medico.especialidade}")
     @Size(max = 60)
@@ -46,16 +50,18 @@ public class Medico extends AbstractEntity<Long> {
         return email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getUsername() { return username; }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getCrm() {
         return crm;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     public String getEspecialidade() {
@@ -66,108 +72,23 @@ public class Medico extends AbstractEntity<Long> {
         this.email = email;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setCrm(String crm) {
         this.crm = crm;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
     }
 }
-
-
-
-/*package org.consulta.domain;
-
-
-public class Medico {
-    private Long id;
-    private String email;
-    private String senha;
-    private String crm;
-    private String nome;
-    private String especialidade;
-
-    public Medico() {
-        
-    }
-
-    public Medico(Long id) {
-        this.id = id;
-    }
-
-    public Medico(String email, String senha, String crm, String nome, String especialidade) {
-        super();
-        this.email = email;
-        this.senha = senha;
-        this.crm = crm;
-        this.nome = nome;
-        this.especialidade = especialidade;
-    }
-
-    public Medico(Long id, String email, String senha, String crm, String nome, String especialidade) {
-        super();
-        this.id = id;
-        this.email = email;
-        this.senha = senha;
-        this.crm = crm;
-        this.nome = nome;
-        this.especialidade = especialidade;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getCrm() {
-        return crm;
-    }
-
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEspecialidade() {
-        return especialidade;
-    }
-
-    public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
-    }
-}*/

@@ -1,5 +1,7 @@
 package org.consulta;
 
+import org.consulta.domain.Paciente;
+import org.consulta.domain.Usuario;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +18,7 @@ import org.consulta.domain.Usuario;
 import org.consulta.domain.Consulta;
 import org.consulta.domain.Paciente;
 
+
 @SpringBootApplication
 public class ConsultaMvcApplication {
 
@@ -27,20 +30,22 @@ public class ConsultaMvcApplication {
     public CommandLineRunner demo(IUsuarioDAO usuarioDAO, BCryptPasswordEncoder encoder, IConsultaDAO consultaDAO, IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO) {
         return (args) -> {
 
-            Usuario u0 = new Usuario();
-            u0.setUsername("admin");
-            u0.setPassword(encoder.encode("admin"));
-            u0.setCpf("01234567890");
-            u0.setName("Administrador");
-            u0.setRole("ROLE_ADMIN");
-            u0.setEnabled(true);
-            usuarioDAO.save(u0);
+            Usuario u1 = new Usuario();
+            u1.setUsername("admin");
+            u1.setEmail("admin@admin.com");
+            u1.setPassword(encoder.encode("admin"));
+            u1.setCpf("012.345.678-90");
+            u1.setName("Administrador");
+            u1.setRole("ROLE_ADMIN");
+            u1.setEnabled(true);
+            usuarioDAO.save(u1);
 
             Medico m1 = new Medico();
+            m1.setUsername("medicojoao");
             m1.setEmail("medicoJoao@email.com");
-            m1.setSenha("senhadojoao");
+            m1.setPassword("senhadojoao");
             m1.setCrm("SP-36730");
-            m1.setNome("Dr. João");
+            m1.setName("Dr. João");
             m1.setEspecialidade("Cardiologia");
             medicoDAO.save(m1);
             Usuario u1 = new Usuario();
@@ -60,12 +65,15 @@ public class ConsultaMvcApplication {
             m2.setNome("Dr. Daniel");
             m2.setEspecialidade("Cardiologia");
             medicoDAO.save(m2);
+            
             Usuario u2 = new Usuario();
-            u2.setUsername("medicodaniel");
-            u2.setPassword(encoder.encode("senhadodaniel"));
-            u2.setCpf("SC-86399");
-            u2.setName("Dr. Daniel");
-            u2.setRole("ROLE_MEDICO");
+            u2.setUsername("beltrano");
+            u2.setEmail("beltrano@email.com");
+            u2.setPassword(encoder.encode("123"));
+            u2.setCpf("985.849.614-10");
+            u2.setName("Beltrano Andrade");
+            u2.setRole("ROLE_PACIENTE");
+
             u2.setEnabled(true);
             usuarioDAO.save(u2);
             
@@ -77,11 +85,13 @@ public class ConsultaMvcApplication {
             m3.setNome("Dra. Maria");
             m3.setEspecialidade("Pediatria");
             medicoDAO.save(m3);
+            
             Usuario u3 = new Usuario();
-            u3.setUsername("medicamaria");
-            u3.setPassword(encoder.encode("senhadamaria"));
-            u3.setCpf("AM-45082");
-            u3.setName("Dra. Maria");
+            u3.setUsername("fulano");
+            u3.setEmail("fulano@email.com");
+            u3.setPassword(encoder.encode("123"));
+            u3.setCpf("367.318.380-04");
+            u3.setName("Fulano Silva");
             u3.setRole("ROLE_MEDICO");
             u3.setEnabled(true);
             usuarioDAO.save(u3);
