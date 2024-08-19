@@ -75,23 +75,27 @@ public class MedicoController {
     }
 
     @GetMapping("/editarMedicos/{id}")
-    public String editarMedicosForm(@PathVariable Long id, Model model) {
+    public String editarMedicosForm(@PathVariable long id, Model model) {
         Medico medico = medicoService.buscarPorId(id);
         if (medico == null) {
             return "redirect:/medicos/listagemMedicos";
         }
+        Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
         model.addAttribute("medico", medico);
+        model.addAttribute("ogcrm", usuario);
         return "logado/medicos/editarMedicos";
     }
 
     @PostMapping("/editarMedicos")
-    public String editarMedicos(Medico medico, RedirectAttributes redirectAttributes) {
-        medicoService.atualizar(medico);
-        Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
-        usuario.setUsername(medico.getEmail());
+    public String editarMedicos(Medico medico, Usuario usuario, RedirectAttributes redirectAttributes) {
+        medicoService.salvar(medico);
+        /*usuario.setUsername(medico.getEmail());
         usuario.setPassword(medico.getPassword());
         usuario.setName(medico.getName());
-        usuarioService.atualizar(usuario);
+        usuario.setCpf(medico.getCrm());
+        usuario.setEmail(medico.getEmail());
+        usuario.setRole("ROLE_MEDICO");
+        usuarioService.salvar(usuario);*/
         return "redirect:/medicos/listagemMedicos";
     }
 
@@ -99,10 +103,10 @@ public class MedicoController {
     public String deletarMedicos(@PathVariable long id, RedirectAttributes redirectAttributes) {
         Medico medico = medicoService.buscarPorId(id);
         if (medico != null) {
-            Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
+            /*Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
             if (usuario != null) {
                 usuarioService.excluir(usuario.getId());
-            }
+            }*/
             medicoService.excluir(medico.getId());
             redirectAttributes.addFlashAttribute("successMessage", "Médico deletado com sucesso.");
         } else {

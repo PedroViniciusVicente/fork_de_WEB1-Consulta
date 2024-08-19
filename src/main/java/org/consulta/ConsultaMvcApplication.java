@@ -249,7 +249,7 @@ public class ConsultaMvcApplication {
             Consulta c1 = new Consulta();
             c1.setCpf("45545678901");
             c1.setCrm("SP-36730");
-            c1.setDataHora("2024-07-22T15:30");
+            c1.setDataHora("2024-08-22T15:30");
             consultaDAO.save(c1);
 
             Consulta c2 = new Consulta();
