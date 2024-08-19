@@ -60,9 +60,8 @@ public class PacienteController {
             usuario.setName(paciente.getNome());
             usuario.setRole("ROLE_PACIENTE");
             usuario.setEnabled(true);
-            pacienteService.salvar(paciente);
             usuarioService.salvar(usuario);
-            System.out.println("chega aq");
+            pacienteService.salvar(paciente);
             return "redirect:/pacientes/listagemPacientes";
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("errorMessage", "Informações inválidas");

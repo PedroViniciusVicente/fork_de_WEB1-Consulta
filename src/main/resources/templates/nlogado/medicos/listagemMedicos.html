@@ -102,7 +102,6 @@
                     <th th:text="#{lname}"> </th>
                     <th th:text="#{lexpertise}"> </th>
                     <th th:text="#{lcrm}"> </th>
-                    <th th:if="${usuario.role == 'ROLE_MEDICO' || usuario.role == 'ROLE_ADMIN'}" th:text="#{ListPatientPageActions}">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,7 +124,7 @@
         </table>
 
         <div class="nav-links">
-            <a th:href="@{/medicos/criarMedicos}" th:text="#{addDoctor}">Adicionar Novo Medico</a>
+            <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/medicos/criarMedicos}" th:text="#{addDoctor}">Adicionar Novo Medico</a>
             <a th:href="@{/index}" th:text="#{home}"></a>
         </div>
     </div>

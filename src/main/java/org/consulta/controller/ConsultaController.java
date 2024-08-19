@@ -85,7 +85,7 @@ public class ConsultaController {
 
        if (isValid) {
             redirectAttributes.addFlashAttribute("errorMessage", "Consulta inválida: já existe uma consulta marcada para este horário.");
-            return "redirect:/index";
+            return "redirect:/consultas/criarConsulta/" + consulta.getCpf();
        }
         
         consultaService.salvar(consulta);
