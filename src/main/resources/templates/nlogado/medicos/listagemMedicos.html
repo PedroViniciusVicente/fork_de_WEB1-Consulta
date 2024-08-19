@@ -79,7 +79,7 @@
             <tbody>
                 <tr th:each="medico : ${listaMedicos}">
                     <!-- <td th:if="${usuarioLogado.cargo == 'ROLE_ADMIN'}" th:text="${medico.email}"></td> -->
-                    <td th:text="${medico.nome}"></td>
+                    <td th:text="${medico.name}"></td>
                     <td th:text="${medico.especialidade}"></td>
                     <td th:text="${medico.crm}"></td>
                     <!-- <td th:if="${usuarioLogado.cargo == 'ROLE_MEDICO' || usuarioLogado.cargo == 'ROLE_ADMIN'}" class="actions">
