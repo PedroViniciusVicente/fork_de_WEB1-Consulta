@@ -42,6 +42,12 @@ public class PacienteController {
             redirectAttributes.addFlashAttribute("errorMessage", "Um paciente com esse CPF já existe");
             return "redirect:/pacientes/criarPacientes";
         }
+        if(paciente.getCpf().length() > 64 || paciente.getEmail().length() > 64 || 
+        paciente.getNome().length() > 64 || paciente.getSenha().length() > 64 || 
+        paciente.getSexo().length() > 64 || paciente.getTelefone().length() > 64 || paciente.getUsername().length() > 64) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Você está com uma entrada longa demais");
+            return "redirect:/pacientes/criarPacientes";
+        }
 
         // Create a new Usuario and Paciente
         Usuario usuario = new Usuario();
