@@ -45,6 +45,10 @@ public class Usuario extends AbstractEntity<Long> {
         return username;
     }
 
+    public Long getId(){
+        return id;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
