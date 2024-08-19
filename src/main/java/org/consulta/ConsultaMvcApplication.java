@@ -48,21 +48,21 @@ public class ConsultaMvcApplication {
             m1.setName("Dr. João");
             m1.setEspecialidade("Cardiologia");
             medicoDAO.save(m1);
-            Usuario u1 = new Usuario();
-            u1.setUsername("medicojoao");
-            u1.setPassword(encoder.encode("senhadojoao"));
-            u1.setCpf("SP-36730");
-            u1.setName("Dr. João");
-            u1.setRole("ROLE_MEDICO");
-            u1.setEnabled(true);
-            usuarioDAO.save(u1);
+            Usuario mu1 = new Usuario();
+            mu1.setUsername("medicojoao");
+            mu1.setPassword(encoder.encode("senhadojoao"));
+            mu1.setCpf("SP-36730");
+            mu1.setName("Dr. João");
+            mu1.setRole("ROLE_MEDICO");
+            mu1.setEnabled(true);
+            usuarioDAO.save(mu1);
 
 
             Medico m2 = new Medico();
             m2.setEmail("medicoDaniel@email.com");
-            m2.setSenha("senhadodaniel");
+            m2.setPassword("senhadodaniel");
             m2.setCrm("SC-86399");
-            m2.setNome("Dr. Daniel");
+            m2.setName("Dr. Daniel");
             m2.setEspecialidade("Cardiologia");
             medicoDAO.save(m2);
             
@@ -80,9 +80,9 @@ public class ConsultaMvcApplication {
 
             Medico m3 = new Medico();
             m3.setEmail("medicaMaria@email.com");
-            m3.setSenha("senhadamaria");
+            m3.setPassword("senhadamaria");
             m3.setCrm("AM-45082");
-            m3.setNome("Dra. Maria");
+            m3.setName("Dra. Maria");
             m3.setEspecialidade("Pediatria");
             medicoDAO.save(m3);
             
@@ -98,9 +98,9 @@ public class ConsultaMvcApplication {
 
             Medico m4 = new Medico();
             m4.setEmail("medicoPedro@email.com");
-            m4.setSenha("senhadopedro");
+            m4.setPassword("senhadopedro");
             m4.setCrm("PR-54321");
-            m4.setNome("Dr. Pedro");
+            m4.setName("Dr. Pedro");
             m4.setEspecialidade("Ortopedia");
             medicoDAO.save(m4);
             Usuario u4 = new Usuario();
@@ -114,9 +114,9 @@ public class ConsultaMvcApplication {
 
             Medico m5 = new Medico();
             m5.setEmail("medicaLarissa@email.com");
-            m5.setSenha("senhadalarissa");
+            m5.setPassword("senhadalarissa");
             m5.setCrm("RJ-18093");
-            m5.setNome("Dra. Larissa");
+            m5.setName("Dra. Larissa");
             m5.setEspecialidade("Neurologia");
             medicoDAO.save(m5);
             Usuario u5 = new Usuario();
@@ -130,9 +130,9 @@ public class ConsultaMvcApplication {
 
             Medico m6 = new Medico();
             m6.setEmail("medicoGuilherme@email.com");
-            m6.setSenha("senhadoguilherme");
+            m6.setPassword("senhadoguilherme");
             m6.setCrm("MG-48773");
-            m6.setNome("Dr. Guilherme");
+            m6.setName("Dr. Guilherme");
             m6.setEspecialidade("Neurologia");
             medicoDAO.save(m6);
             Usuario u6 = new Usuario();

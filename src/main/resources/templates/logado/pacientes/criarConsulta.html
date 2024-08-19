@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{createAppointmentTitle}"></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #a8c0ff, #3f2b96);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #8e44ad;
+        }
+
+        table {
+            width: 80%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background: #9b59b6;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #9b59b6;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            color: red;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            let today = new Date();
+            let day = ("0" + today.getDate()).slice(-2);
+            let month = ("0" + (today.getMonth() + 1)).slice(-2);
+            let year = today.getFullYear();
+            let hours = ("0" + today.getHours()).slice(-2);
+            let minutes = ("0" + (Math.floor(today.getMinutes() / 30) * 30)).slice(-2);
+            let minDateTime = year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
+            document.getElementById("data_hora").setAttribute("min", minDateTime);
+        }
+    </script>
+</head>
+<body>
+    <h2 th:text="#{createAppointmentTitle}"></h2>
+    <p th:if="${errorMessage}" style="color: red;" th:text="${errorMessage}"></p>
+    <form th:action="@{/pacientes/criarConsulta}" method="post">
+        <label for="cpf" th:text="#{cpfPatient}"></label>
+        <input type="text" name="cpf" id="cpf" th:value="${usuarioLogado.documento}" readonly>
+
+        <label for="crm" th:text="#{crmDoctor}"></label>
+        <input type="text" name="crm" id="crm" required>
+
+        <label for="data_hora" th:text="#{createAppointmentDateAndTime}"></label>
+        <input type="datetime-local" name="data_hora" id="data_hora" required step="1800">
+
+        <input type="submit" th:value="#{addAppointment}">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th th:text="#{cid}"></th>
+                <th th:text="#{cemail}"></th>
+                <th th:text="#{ccrm}"></th>
+                <th th:text="#{cname}"></th>
+                <th th:text="#{cexpertise}"></th>
+                <th th:if="${usuarioLogado.cargo == 'medico' || usuarioLogado.cargo == 'admin'}" th:text="#{cactions}"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="medico : ${listaMedicos}">
+                <td th:text="${medico.id}"></td>
+                <td th:text="${medico.email}"></td>
+                <td th:text="${medico.crm}"></td>
+                <td th:text="${medico.nome}"></td>
+                <td th:text="${medico.especialidade}"></td>
+                <td th:if="${usuarioLogado.cargo == 'ROLE_MEDICO' || usuarioLogado.cargo == 'ROLE_ADMIN'}">
+                    <a th:href="@{/medicos/editarMedicos(id=${medico.id})}" th:text="#{cedit}"></a>
+                    <a th:href="@{/medicos/deletarMedicos(id=${medico.id})}" th:onclick="return confirm(th:text='#{cconfirm}');" th:text="#{cdelete}"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
