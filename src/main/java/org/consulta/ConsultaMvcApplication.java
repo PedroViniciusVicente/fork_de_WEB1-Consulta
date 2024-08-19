@@ -30,15 +30,15 @@ public class ConsultaMvcApplication {
     public CommandLineRunner demo(IUsuarioDAO usuarioDAO, BCryptPasswordEncoder encoder, IConsultaDAO consultaDAO, IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO) {
         return (args) -> {
 
-            Usuario u1 = new Usuario();
-            u1.setUsername("admin");
-            u1.setEmail("admin@admin.com");
-            u1.setPassword(encoder.encode("admin"));
-            u1.setCpf("012.345.678-90");
-            u1.setName("Administrador");
-            u1.setRole("ROLE_ADMIN");
-            u1.setEnabled(true);
-            usuarioDAO.save(u1);
+            Usuario u0 = new Usuario();
+            u0.setUsername("admin");
+            u0.setEmail("admin@admin.com");
+            u0.setPassword(encoder.encode("admin"));
+            u0.setCpf("012.345.678-90");
+            u0.setName("Administrador");
+            u0.setRole("ROLE_ADMIN");
+            u0.setEnabled(true);
+            usuarioDAO.save(u0);
 
             Medico m1 = new Medico();
             m1.setUsername("medicojoao");
@@ -59,13 +59,13 @@ public class ConsultaMvcApplication {
 
 
             Medico m2 = new Medico();
+            m2.setUsername("medicoDaniel@email.com");
             m2.setEmail("medicoDaniel@email.com");
             m2.setPassword("senhadodaniel");
             m2.setCrm("SC-86399");
             m2.setName("Dr. Daniel");
             m2.setEspecialidade("Cardiologia");
             medicoDAO.save(m2);
-            
             Usuario u2 = new Usuario();
             u2.setUsername("beltrano");
             u2.setEmail("beltrano@email.com");
@@ -73,11 +73,10 @@ public class ConsultaMvcApplication {
             u2.setCpf("985.849.614-10");
             u2.setName("Beltrano Andrade");
             u2.setRole("ROLE_PACIENTE");
-
             u2.setEnabled(true);
             usuarioDAO.save(u2);
             
-
+/*
             Medico m3 = new Medico();
             m3.setEmail("medicaMaria@email.com");
             m3.setPassword("senhadamaria");
@@ -239,6 +238,8 @@ public class ConsultaMvcApplication {
             c4.setCrm("PR-54321");
             c4.setDataHora("2024-07-23T18:00");
             consultaDAO.save(c4);
+
+ */
             
         };
     }
