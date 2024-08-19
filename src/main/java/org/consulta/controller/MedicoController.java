@@ -70,23 +70,24 @@ public class MedicoController {
             redirectAttributes.addFlashAttribute("errorMessage", "Um médico com esse CRM já existe");
             return "redirect:/medicos/criarMedicos";
         }
-        if(medico.getCrm().length() > 60 || medico.getEmail().length() > 60 || medico.getEspecialidade().length() > 60 ||
-        medico.getName().length() > 60 || medico.getPassword().length() > 60 || medico.getUsername().length() > 60) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Você está com uma entrada longa demais");
+        try {
+            Usuario usuario = new Usuario();
+            usuario.setUsername(medico.getEmail());
+            usuario.setEmail(medico.getEmail());
+            usuario.setPassword(medico.getPassword());
+            usuario.setCpf(medico.getCrm());
+            usuario.setName(medico.getName());
+            usuario.setRole("ROLE_MEDICO");
+            usuario.setEnabled(true);
+            usuarioService.salvar(usuario);
+
+            medicoService.salvar(medico);
+            return "redirect:/medicos/listagemMedicos";
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Informações inválidas");
             return "redirect:/medicos/criarMedicos";
         }
-        Usuario usuario = new Usuario();
-        usuario.setUsername(medico.getEmail());
-        usuario.setEmail(medico.getEmail());
-        usuario.setPassword(medico.getPassword());
-        usuario.setCpf(medico.getCrm());
-        usuario.setName(medico.getName());
-        usuario.setRole("ROLE_MEDICO");
-        usuario.setEnabled(true);
-        usuarioService.salvar(usuario);
 
-        medicoService.salvar(medico);
-        return "redirect:/medicos/listagemMedicos";
     }
 
     @GetMapping("/editarMedicos/{id}")
