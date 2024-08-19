@@ -65,7 +65,8 @@ public class PacienteController {
             return "logado/pacientes/listagemPacientes";
         }
         model.addAttribute("paciente", paciente);
-        return "logado/paciente/editarPacientes";
+        // System.out.println("oisidfuuyasdgf");
+        return "logado/pacientes/editarPacientes";
     }
 
     @PostMapping("/editarPacientes")
@@ -79,12 +80,11 @@ public class PacienteController {
             usuario.setPassword(paciente.getSenha());
             usuarioService.atualizar(usuario);
         }
-        return "redirect:/pacientes/listar";
+        return "redirect:/pacientes/listagemPacientes";
     }
 
     @GetMapping("/deletarPacientes/{id}")
     public String deletarPacientes(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        System.out.println("HEELP\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         Paciente paciente = pacienteService.buscarPorId(id);
         if (paciente != null) {
             Usuario usuario = usuarioService.buscarPorDocumento(paciente.getCpf());
