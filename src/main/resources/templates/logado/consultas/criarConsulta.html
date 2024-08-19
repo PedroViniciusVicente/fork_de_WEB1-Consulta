@@ -176,10 +176,10 @@
         <td th:text="${medico.crm}"></td>
         <td th:text="${medico.nome}"></td>
         <td th:text="${medico.especialidade}"></td>
-<!--        <td th:if="${usuarioLogado.cargo == 'medico' || usuarioLogado.cargo == 'admin'}">-->
-<!--            <a th:href="@{/medicos/editarMedicos(id=${medico.id})}" th:text="#{cedit}">Editar</a>-->
-<!--            <a th:href="@{/medicos/deletarMedicos(id=${medico.id})}" th:onclick="'return confirm(\'' + #{cconfirm} + '\')'" th:text="#{cdelete}">Excluir</a>-->
-<!--        </td>-->
+       <td th:if="${usuarioLogado.cargo == 'medico' || usuarioLogado.cargo == 'admin'}">
+           <a th:href="@{/medicos/editarMedicos(id=${medico.id})}" th:text="#{cedit}">Editar</a>
+           <a th:href="@{/medicos/deletarMedicos(id=${medico.id})}" th:onclick="'return confirm(\'' + #{cconfirm} + '\')'" th:text="#{cdelete}">Excluir</a>
+       </td>
     </tr>
     </tbody>
 </table>

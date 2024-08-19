@@ -2,8 +2,6 @@ package org.consulta.controller;
 
 import org.consulta.domain.Paciente;
 import org.consulta.domain.Usuario;
-import org.consulta.service.spec.IConsultaService;
-import org.consulta.service.spec.IMedicoService;
 import org.consulta.service.spec.IPacienteService;
 import org.consulta.service.spec.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +20,9 @@ public class PacienteController {
     private IPacienteService pacienteService;
 
     @Autowired
-    private IConsultaService consultaService;
-
-    @Autowired
-    private IMedicoService medicoService;
-
-    @Autowired
     private IUsuarioService usuarioService;
 
-    @GetMapping("/listar")
+    @GetMapping("/listagemPacientes")
     public String listar(Model model) {
         List<Paciente> pacientes = pacienteService.buscarTodos();
         model.addAttribute("listaPacientes", pacientes);
@@ -45,18 +37,16 @@ public class PacienteController {
 
     @PostMapping("/criarPacientes")
     public String criarPacientes(@ModelAttribute("paciente") Paciente paciente, RedirectAttributes redirectAttributes) {
-        if (pacienteService.buscarPorCpf(paciente.getCpf()) != null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Um paciente com esse CPF já existe");
-            return "redirect:/pacientes/criarPacientes";
-        }
         Paciente jaExiste = pacienteService.buscarPorCpf(paciente.getCpf());
         if (jaExiste != null) {
-            return "redirect:/pacientes/cadastrar?error=Paciente com CPF já existe";
+            redirectAttributes.addFlashAttribute("errorMessage", "Um paciente com esse CPF já existe");
+            return "redirect:/pacientes/criarPacientes";
         }
 
         // Create a new Usuario and Paciente
         Usuario usuario = new Usuario();
-        usuario.setUsername(paciente.getEmail());
+        usuario.setUsername(paciente.getUsername());
+        usuario.setEmail(paciente.getEmail());
         usuario.setPassword(paciente.getSenha());
         usuario.setCpf(paciente.getCpf());
         usuario.setName(paciente.getNome());
@@ -64,6 +54,7 @@ public class PacienteController {
         usuario.setEnabled(true);
         pacienteService.salvar(paciente);
         usuarioService.salvar(usuario);
+        System.out.println("chega aq");
         return "redirect:/pacientes/listagemPacientes";
     }
 
@@ -82,7 +73,9 @@ public class PacienteController {
         pacienteService.atualizar(paciente);
         Usuario usuario = usuarioService.buscarPorDocumento(paciente.getCpf());
         if (usuario != null) {
-            usuario.setUsername(paciente.getEmail());
+            usuario.setUsername(paciente.getUsername());
+            usuario.setEmail(paciente.getEmail());
+            usuario.setName(paciente.getNome());
             usuario.setPassword(paciente.getSenha());
             usuarioService.atualizar(usuario);
         }
@@ -91,6 +84,7 @@ public class PacienteController {
 
     @GetMapping("/deletarPacientes/{id}")
     public String deletarPacientes(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        System.out.println("HEELP\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         Paciente paciente = pacienteService.buscarPorId(id);
         if (paciente != null) {
             Usuario usuario = usuarioService.buscarPorDocumento(paciente.getCpf());

@@ -1,6 +1,5 @@
 package org.consulta.service.impl;
 
-import org.consulta.domain.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

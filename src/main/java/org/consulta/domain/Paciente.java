@@ -31,9 +31,13 @@ public class Paciente extends AbstractEntity<Long>{
     @NotBlank
     @Column(nullable = false, length = 64)
     private String dataNascimento;
+    @NotBlank
+    @Column(nullable = false, length = 64, unique = true)
+    private String username;
+
 
     public Paciente(Long id) {this.id = id;}
-    public Paciente(String email, String senha, String cpf, String nome, String telefone, String sexo, String dataNascimento) {
+    public Paciente(String email, String senha, String cpf, String nome, String telefone, String sexo, String dataNascimento, String username) {
         super();
         this.email = email;
         this.senha = senha;
@@ -42,9 +46,10 @@ public class Paciente extends AbstractEntity<Long>{
         this.telefone = telefone;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
+        this.username = username;
     }
 
-    public Paciente(Long id, String email, String senha, String cpf, String nome, String telefone, String sexo, String dataNascimento) {
+    public Paciente(Long id, String email, String senha, String cpf, String nome, String telefone, String sexo, String dataNascimento, String username) {
         super();
         this.id = id;
         this.email = email;
@@ -54,6 +59,7 @@ public class Paciente extends AbstractEntity<Long>{
         this.telefone = telefone;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
+        this.username = username;
     }
 
     public Paciente() {
@@ -122,5 +128,13 @@ public class Paciente extends AbstractEntity<Long>{
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

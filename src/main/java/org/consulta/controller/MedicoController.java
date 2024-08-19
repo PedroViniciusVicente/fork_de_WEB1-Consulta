@@ -62,9 +62,10 @@ public class MedicoController {
         }
         Usuario usuario = new Usuario();
         usuario.setUsername(medico.getEmail());
-        usuario.setPassword(medico.getSenha());
+        usuario.setEmail(medico.getEmail());
+        usuario.setPassword(medico.getPassword());
         usuario.setCpf(medico.getCrm());
-        usuario.setName(medico.getNome());
+        usuario.setName(medico.getName());
         usuario.setRole("ROLE_MEDICO");
         usuario.setEnabled(true);
         usuarioService.salvar(usuario);
@@ -88,8 +89,8 @@ public class MedicoController {
         medicoService.atualizar(medico);
         Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
         usuario.setUsername(medico.getEmail());
-        usuario.setPassword(medico.getSenha());
-        usuario.setName(medico.getNome());
+        usuario.setPassword(medico.getPassword());
+        usuario.setName(medico.getName());
         usuarioService.atualizar(usuario);
         return "redirect:/medicos/listagemMedicos";
     }
