@@ -128,7 +128,6 @@
     <table>
         <thead>
             <tr>
-                <th th:text="#{doctorExpertiseID}"></th>
                 <th th:text="#{doctorExpertiseEmail}"></th>
                 <th th:text="#{doctorExpertiseCRM}"></th>
                 <th th:text="#{doctorExpertiseName}"></th>
@@ -139,6 +138,7 @@
         <tbody>
             <tr th:each="medico : ${listaMedicos}">
                 <!-- <td th:if="${usuarioLogado.cargo == 'ROLE_ADMIN'}" th:text="${medico.email}"></td> -->
+                <td th:text="${medico.email}"></td>
                 <td th:text="${medico.crm}"></td>
                 <td th:text="${medico.name}"></td>
                 <td th:text="${medico.especialidade}"></td>

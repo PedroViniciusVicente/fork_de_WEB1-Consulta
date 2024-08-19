@@ -59,7 +59,7 @@ public class ConsultaMvcApplication {
 
             // Medico Daniel
             Medico m2 = new Medico();
-            m2.setUsername("daniel");
+            m2.setUsername("medicoDaniel@email.com");
             m2.setEmail("medicoDaniel@email.com");
             m2.setPassword(encoder.encode("senhadodaniel")); // Ensure password is encoded
             m2.setCrm("SC-86399");
@@ -76,6 +76,25 @@ public class ConsultaMvcApplication {
             u2.setRole("ROLE_MEDICO");
             u2.setEnabled(true);
             usuarioDAO.save(u2);
+            
+/*
+            Medico m3 = new Medico();
+            m3.setEmail("medicaMaria@email.com");
+            m3.setPassword("senhadamaria");
+            m3.setCrm("AM-45082");
+            m3.setName("Dra. Maria");
+            m3.setEspecialidade("Pediatria");
+            medicoDAO.save(m3);
+            
+            Usuario u3 = new Usuario();
+            u3.setUsername("fulano");
+            u3.setEmail("fulano@email.com");
+            u3.setPassword(encoder.encode("123"));
+            u3.setCpf("367.318.380-04");
+            u3.setName("Fulano Silva");
+            u3.setRole("ROLE_MEDICO");
+            u3.setEnabled(true);
+            usuarioDAO.save(u3);
 
             // Medico Pedro
             Medico m4 = new Medico();
@@ -249,6 +268,7 @@ public class ConsultaMvcApplication {
             c4.setCrm("PR-54321");
             c4.setDataHora("2024-07-23T18:00");
             consultaDAO.save(c4);
+ */
         };
     }
 }
