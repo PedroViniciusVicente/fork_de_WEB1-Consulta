@@ -7,7 +7,7 @@ import org.consulta.domain.Medico;
 public interface IMedicoService {
 
     //done
-    Medico buscarPorId(Long id);
+    Medico buscarPorId(long id);
 
     //done
     List<Medico> buscarPorEspecialidade(String especialidade);

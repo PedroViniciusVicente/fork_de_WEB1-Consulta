@@ -25,11 +25,11 @@ public class MedicoService implements IMedicoService {
         dao.deleteById(id);
     }
 
-    public void atualizar(Medico medico) {dao.save(medico); }
+    public void atualizar(Medico medico) { dao.save(medico); }
 
     @Transactional(readOnly = true)
-    public Medico buscarPorId(Long id) {
-        return dao.findById(id.longValue());
+    public Medico buscarPorId(long id) {
+        return dao.findById(id);
     }
 
     @Transactional(readOnly = true)

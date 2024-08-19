@@ -78,11 +78,15 @@ public class ConsultaController {
     @PostMapping("/criarConsulta")
     public String criarConsulta(Consulta consulta, RedirectAttributes redirectAttributes) {
 
-       /* boolean isValid = consultaService.checkValidity(consulta.getCrm(), consulta.getCpf(), consulta.getDataHora());
-       if (!isValid) {
+        System.out.println(consulta.getCpf() + consulta.getCrm() + consulta.getDataHora());
+
+       boolean isValid = consultaService.checkValidity(consulta.getCrm(), consulta.getCpf(), consulta.getDataHora());
+        System.out.println("teste: " + isValid);
+
+       if (isValid) {
             redirectAttributes.addFlashAttribute("errorMessage", "Consulta inválida: já existe uma consulta marcada para este horário.");
-            return "redirect:/consultas/listagemConsultas";
-       }*/
+            return "redirect:/index";
+       }
         
         consultaService.salvar(consulta);
         return "redirect:/index";

@@ -91,26 +91,28 @@ public class MedicoController {
     }
 
     @GetMapping("/editarMedicos/{id}")
-    public String editarMedicosForm(@PathVariable("id") Long id, Model model) {
+
+    public String editarMedicosForm(@PathVariable long id, Model model) {
         Medico medico = medicoService.buscarPorId(id);
         if (medico == null) {
             return "redirect:/medicos/listagemMedicos";
         }
+        Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
         model.addAttribute("medico", medico);
+        model.addAttribute("ogcrm", usuario);
         return "logado/medicos/editarMedicos";
     }
 
     @PostMapping("/editarMedicos")
-    public String editarMedicos(@ModelAttribute("medico") Medico medico, RedirectAttributes redirectAttributes) {
-        medicoService.atualizar(medico);
-        Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
-        if (usuario != null) {
-            usuario.setUsername(medico.getUsername());
-            usuario.setEmail(medico.getEmail());
-            usuario.setName(medico.getName());
-            usuario.setPassword(medico.getPassword());
-            usuarioService.atualizar(usuario);
-        }
+    public String editarMedicos(Medico medico, Usuario usuario, RedirectAttributes redirectAttributes) {
+        medicoService.salvar(medico);
+        /*usuario.setUsername(medico.getEmail());
+        usuario.setPassword(medico.getPassword());
+        usuario.setName(medico.getName());
+        usuario.setCpf(medico.getCrm());
+        usuario.setEmail(medico.getEmail());
+        usuario.setRole("ROLE_MEDICO");
+        usuarioService.salvar(usuario);*/
         return "redirect:/medicos/listagemMedicos";
     }
 
@@ -119,10 +121,10 @@ public class MedicoController {
         Medico medico = medicoService.buscarPorId(id);
         System.out.println("asdasd");
         if (medico != null) {
-            Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
+            /*Usuario usuario = usuarioService.buscarPorDocumento(medico.getCrm());
             if (usuario != null) {
                 usuarioService.excluir(usuario.getId());
-            }
+            }*/
             medicoService.excluir(medico.getId());
             redirectAttributes.addFlashAttribute("successMessage", "Médico deletado com sucesso.");
         } else {
